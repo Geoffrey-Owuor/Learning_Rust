@@ -32,4 +32,24 @@ fn main() {
     // println!("x = {x}, y = {y}");
 
     // Ownership and Functions
-}
+    let s = String::from("hello"); //s comes into scope
+
+    takes_ownership(s); //value of s moves into the function - hence is no longer valid here
+
+    let x = 5; //x comes into scope
+
+    makes_copy(x); //i32 implements the copy trait
+    //x does not move into the function
+    //so it is ok to use x afterward
+} //Here x goes out of scope, then s. However, because s's value was moved
+//Nothing special happens here
+
+fn takes_ownership(some_string: String) {
+    //some_string comes into scope
+    println!("{some_string}");
+} //Here some_string goes out of scope and drop is called. The backing memory is freed
+
+fn makes_copy(some_integer: i32) {
+    //some_integer comes into scope
+    println!("{some_integer}");
+} //Some integer goes out of scope, nothing special happens here
