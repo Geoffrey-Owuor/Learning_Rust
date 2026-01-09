@@ -47,9 +47,12 @@ fn main() {
     let s3 = takes_and_gives_back(s2); //s2 is moved into
     //takes_and_gives_back, which also
     //  moves its return value into s3
+    let string_value_original = String::from("hello");
+    let (string_value, len) = calculate_length(string_value_original);
 
     // Note that we cannot access value of s2 here - as it has been moved into s3
     println!("s1 value: {s1}, s2 value: {s3}");
+    println!("The length of {string_value} is {len}");
 } //Here x, s1, s3 goes out of scope and are dropped. However, because s's and s2's value was moved
 //Nothing special happens here
 
@@ -77,4 +80,11 @@ fn takes_and_gives_back(a_string: String) -> String {
     // a_string comes into scope
 
     a_string //a_string is returned and moves out to the calling function
+}
+
+// Returning multiple values using a tuple
+fn calculate_length(s: String) -> (String, usize) {
+    let length = s.len(); //len() method returns the length of a string
+
+    (s, length)
 }
