@@ -41,7 +41,16 @@ fn main() {
     makes_copy(x); //i32 implements the copy trait
     //x does not move into the function
     //so it is ok to use x afterward
-} //Here x goes out of scope, then s. However, because s's value was moved
+
+    let s1 = gives_ownership(); //gives ownership moves its value into s1
+    let s2 = String::from("hello"); //s2 comes into scope
+    let s3 = takes_and_gives_back(s2); //s2 is moved into
+    //takes_and_gives_back, which also
+    //  moves its return value into s3
+
+    // Note that we cannot access value of s2 here - as it has been moved into s3
+    println!("s1 value: {s1}, s2 value: {s3}");
+} //Here x, s1, s3 goes out of scope and are dropped. However, because s's and s2's value was moved
 //Nothing special happens here
 
 fn takes_ownership(some_string: String) {
@@ -53,3 +62,19 @@ fn makes_copy(some_integer: i32) {
     //some_integer comes into scope
     println!("{some_integer}");
 } //Some integer goes out of scope, nothing special happens here
+
+// Return Values And Scope
+fn gives_ownership() -> String {
+    //gives_ownership will move its return value
+    //to the function that calls it
+    let some_string = String::from("yours"); //some_string comes into scope
+    some_string //some string is returned and moves out
+    //to the calling function
+}
+
+// Function that takes a string and gives a string
+fn takes_and_gives_back(a_string: String) -> String {
+    // a_string comes into scope
+
+    a_string //a_string is returned and moves out to the calling function
+}
