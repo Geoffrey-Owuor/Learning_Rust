@@ -2,6 +2,7 @@
 // Using variables first
 
 // Using structs to define a Rectangle struct
+#[derive(Debug)]
 struct Rectangle {
     width: u32,
     height: u32,
@@ -27,6 +28,21 @@ fn main() {
     };
 
     println!("The struct area is {} square pixels", rect_area2(&rect2));
+
+    // Adding functionality with derived traits
+    // How can we print an instance of Rectangle for debugging purposes
+    println!("Debugging information for rect2 is {rect2:?}"); //This version is not pretty print
+    println!("Pretty print version: {rect2:#?}");
+
+    // Using the dbg! macro
+    // Helpful when you really want to figure out what your code is doing
+    let scale = 2;
+    let rect3 = Rectangle {
+        width: dbg!(30 * scale), //takes ownership of expression's value and returns it
+        height: 50,
+    };
+
+    dbg!(&rect3);
 }
 
 // It is not clear anywhere in our program the these two
