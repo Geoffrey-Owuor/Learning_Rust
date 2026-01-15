@@ -25,6 +25,13 @@ enum Message {
     ChangeColor(i32, i32, i32),
 }
 
+// An implementation of methods on enum Message
+impl Message {
+    fn call(&self) {
+        //   Method body
+    }
+}
+
 fn main() {
     //  Instances of the ipAddrKind
     let four = ipAddrKind::V4(String::from("127.0.0.1"));
@@ -36,6 +43,10 @@ fn main() {
 
     let home = ipAddr::V4(127, 0, 0, 1);
     let loopback = ipAddr::V6(String::from("::1"));
+
+    // Write on variant 'write' and call the 'call' function
+    let m = Message::Write(String::from("hello"));
+    m.call();
 }
 
 //Defining a function that takes any ipAddrKind
